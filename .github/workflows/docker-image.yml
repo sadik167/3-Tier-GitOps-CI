@@ -83,6 +83,7 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }}
+          path: gitops-repo
           
   gitops-cd:
     runs-on: ubuntu-latest
