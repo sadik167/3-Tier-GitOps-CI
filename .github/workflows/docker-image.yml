@@ -81,3 +81,28 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }}
+          
+  gitops-cd:
+    runs-on: ubuntu-latest
+    needs: docker-build
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          repository: sadik167/3-Tier-GitOps-CD
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update deployment files
+        run: |
+          sed -i "s|image: sadik167/frontend:.*|image: sadik167/frontend:${{ env.IMAGE_TAG }}|g" ./deployment/frontend-deployment.yaml
+          sed -i "s|image: sadik167/backend:.*|image: sadik167/backend:${{ env.IMAGE_TAG }}|g" ./deployment/backend-deployment.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Update image tags"
+          git push
