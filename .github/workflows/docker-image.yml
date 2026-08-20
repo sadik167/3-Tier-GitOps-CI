@@ -92,7 +92,7 @@ jobs:
         with:
           ref: main
           repository: sadik167/3-Tier-GitOps-CD
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CD_REPO_TOKEN }}
       
       - name: Update deployment files
         run: |
