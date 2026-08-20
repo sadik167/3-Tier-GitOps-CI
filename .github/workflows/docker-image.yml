@@ -40,6 +40,8 @@ jobs:
 
       - name: Gitleaks setup
         uses: gitleaks/gitleaks-action@v3
+        env:
+          CD_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Gitleaks scan
         run: |
