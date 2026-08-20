@@ -96,6 +96,7 @@ jobs:
       
       - name: Update deployment files
         run: |
+          cd gitops-repo
           sed -i "s|image: sadik167/frontend:.*|image: sadik167/frontend:${{ env.IMAGE_TAG }}|g" ./deployment/frontend-deployment.yaml
           sed -i "s|image: sadik167/backend:.*|image: sadik167/backend:${{ env.IMAGE_TAG }}|g" ./deployment/backend-deployment.yaml
 
