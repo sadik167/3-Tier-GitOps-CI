@@ -83,7 +83,6 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }}
-          path: gitops-repo
           
   gitops-cd:
     runs-on: ubuntu-latest
@@ -96,6 +95,7 @@ jobs:
           ref: main
           repository: sadik167/3-Tier-GitOps-CD
           token: ${{ secrets.CD_REPO_TOKEN }}
+          path: gitops-repo
       
       - name: Update deployment files
         run: |
